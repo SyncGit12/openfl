@@ -177,20 +177,6 @@ class SampleDataEvent extends Event
 	}
 
 	#if lime_openal
-	private function getBufferSize():Int
-	{
-		var bufferSize:Int = Std.int(data.length / 4 / 2);
-		if (bufferSize >= 2048 && bufferSize <= 8192)
-		{
-			return bufferSize;
-		}
-		else
-		{
-			throw new Error("To be consistent with flash the listener function registered to SampleDataEvent has to provide between 2048 and 8192 samples.");
-		}
-		return bufferSize;
-	}
-
 	private function getSamples(outputBuffer:ByteArray):Void
 	{
 		var bytesLength:Int = data.length;
