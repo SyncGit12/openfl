@@ -180,10 +180,7 @@ class SampleDataEvent extends Event
 	private function getBufferSize():Int
 	{
 		var bufferSize:Int = Std.int(data.length / 4 / 2);
-		if (bufferSize >= 2048 && bufferSize <= 8192)
-		{
-			trace('we are NOT limiting this dawg what the FUCK????');
-		}
+		trace('we are NOT limiting this dawg what the FUCK OPENFL????');
 	}
 
 	private function getSamples(outputBuffer:ByteArray):Void
