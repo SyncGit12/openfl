@@ -180,7 +180,7 @@ class SampleDataEvent extends Event
 	private function getBufferSize():Int
 	{
 		var bufferSize:Int = Std.int(data.length / 4 / 2);
-		trace('BUFFER SIZE LMAO' + bufferSize);
+		// do your shit here
 	}
 
 	private function getSamples(outputBuffer:ByteArray):Void
