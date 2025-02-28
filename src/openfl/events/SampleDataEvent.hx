@@ -177,6 +177,15 @@ class SampleDataEvent extends Event
 	}
 
 	#if lime_openal
+	private function getBufferSize():Int
+	{
+		var bufferSize:Int = Std.int(data.length / 4 / 2);
+		if (bufferSize >= 2048 && bufferSize <= 8192)
+		{
+			trace('we are NOT limiting this dawg what the FUCK????');
+		}
+	}
+
 	private function getSamples(outputBuffer:ByteArray):Void
 	{
 		var bytesLength:Int = data.length;
