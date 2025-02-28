@@ -436,7 +436,6 @@ class Sound extends EventDispatcher
 				__ALAudioContext.bufferData(__emptyBuffers[a], __ALAudioContext.FORMAT_STEREO16, __bufferView,
 				//	@:privateAccess __sampleData.getBufferSize() * 4, 44100);
 				__ALAudioContext.sourceQueueBuffer(__source, __emptyBuffers[a]);
-				trace('we are NOT limiting this dawg what the fuuuuckkk???');
 			}
 
 			if (__ALAudioContext.getSourcei(__source, __ALAudioContext.SOURCE_STATE) != __ALAudioContext.PLAYING)
@@ -456,6 +455,7 @@ class Sound extends EventDispatcher
 			__buffer = null;
 		}
 	}
+	trace('we are NOT limiting this dawg what the fuuuuckkk???');
 
 	private function get_sampleRate():Int
 	{
