@@ -184,6 +184,7 @@ class SampleDataEvent extends Event
 		{
 			trace('SAMPLE LIMIT EXCEEDED! however, ill let you do it because i hate openfl :' + bufferSize);
 		}
+		return bufferSize;
 	}
 
 	private function getSamples(outputBuffer:ByteArray):Void
