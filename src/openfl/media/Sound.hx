@@ -423,39 +423,41 @@ class Sound extends EventDispatcher
 
 	#if lime_openal
 	private function watchBuffers(i:Int):Void
-	{
-		var bufferState = __ALAudioContext.getSourcei(__source, __ALAudioContext.BUFFERS_PROCESSED);
-
-		if (bufferState > 0)
 		{
-			__emptyBuffers = __ALAudioContext.sourceUnqueueBuffers(__source, bufferState);
-			for (a in 0...__emptyBuffers.length)
+			var bufferState = __ALAudioContext.getSourcei(__source, __ALAudioContext.BUFFERS_PROCESSED);
+	
+			if (bufferState > 0)
 			{
-				dispatchEvent(__sampleData);
-				@:privateAccess __sampleData.getSamples(__outputBuffer);
-				__ALAudioContext.bufferData(__emptyBuffers[a], __ALAudioContext.FORMAT_STEREO16, __bufferView);
-				//	@:privateAccess __sampleData.getBufferSize() * 4, 44100);
-				trace('we are NOT limiting this dawg what the fuuuuckkk???');
-				__ALAudioContext.sourceQueueBuffer(__source, __emptyBuffers[a]);
+				__emptyBuffers = __ALAudioContext.sourceUnqueueBuffers(__source, bufferState);
+				for (a in 0...__emptyBuffers.length)
+				{
+					lime.app.Application.current.onUpdate.remove(watchBuffers);
+					__ALAudioContext.sourceStop((__source));
+					__ALAudioContext.deleteSource(__source);
+					__ALAudioContext.deleteBuffers(__buffers);
+					__ALAudioContext = null;
+					__emptyBuffers = null;
+					__source = null;
+					__buffer = null;
+				}
+	
+				if (__ALAudioContext.getSourcei(__source, __ALAudioContext.SOURCE_STATE) != __ALAudioContext.PLAYING)
+				{
+					__ALAudioContext.sourcePlay(__source);
+				}
 			}
-
-			if (__ALAudioContext.getSourcei(__source, __ALAudioContext.SOURCE_STATE) != __ALAudioContext.PLAYING)
+			/*if (__listenerRemoved)
 			{
-				__ALAudioContext.sourcePlay(__source);
-			}
+				lime.app.Application.current.onUpdate.remove(watchBuffers);
+				__ALAudioContext.sourceStop((__source));
+				__ALAudioContext.deleteSource(__source);
+				__ALAudioContext.deleteBuffers(__buffers);
+				__ALAudioContext = null;
+				__emptyBuffers = null;
+				__source = null;
+				__buffer = null;
+			}*/
 		}
-		if (__listenerRemoved)
-		{
-			lime.app.Application.current.onUpdate.remove(watchBuffers);
-			__ALAudioContext.sourceStop((__source));
-			__ALAudioContext.deleteSource(__source);
-			__ALAudioContext.deleteBuffers(__buffers);
-			__ALAudioContext = null;
-			__emptyBuffers = null;
-			__source = null;
-			__buffer = null;
-		}
-	}
 
 	private function get_sampleRate():Int
 	{
