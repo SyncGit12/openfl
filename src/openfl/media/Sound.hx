@@ -434,8 +434,9 @@ class Sound extends EventDispatcher
 				dispatchEvent(__sampleData);
 				@:privateAccess __sampleData.getSamples(__outputBuffer);
 				__ALAudioContext.bufferData(__emptyBuffers[a], __ALAudioContext.FORMAT_STEREO16, __bufferView,
-					@:privateAccess __sampleData.getBufferSize() * 4, 44100);
+				//	@:privateAccess __sampleData.getBufferSize() * 4, 44100);
 				__ALAudioContext.sourceQueueBuffer(__source, __emptyBuffers[a]);
+				trace('we are NOT limiting this dawg what the fuuuuckkk???');
 			}
 
 			if (__ALAudioContext.getSourcei(__source, __ALAudioContext.SOURCE_STATE) != __ALAudioContext.PLAYING)
