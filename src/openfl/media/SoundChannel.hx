@@ -58,6 +58,8 @@ import lime.media.AudioSource;
 	**/
 	public var soundTransform(get, set):SoundTransform;
 
+	public var pitch(get, set):Float;
+
 	@:noCompletion private var __isValid:Bool;
 	@:noCompletion private var __soundTransform:SoundTransform;
 	#if lime
@@ -159,7 +161,28 @@ import lime.media.AudioSource;
 		if (!__isValid) return 0;
 
 		#if lime
-		__source.currentTime = Std.int(value) - __source.offset;
+		__source.currentTime = value - __source.offset;
+		#end
+		return value;
+	}
+
+	@:noCompletion private function get_pitch():Float
+	{
+		if (!__isValid) return 1;
+
+		#if lime
+		return __source.pitch;
+		#else
+		return 1;
+		#end
+	}
+
+	@:noCompletion private function set_pitch(value:Float):Float
+	{
+		if (!__isValid) return 1;
+
+		#if lime
+		__source.pitch = value;
 		#end
 		return value;
 	}
@@ -179,7 +202,7 @@ import lime.media.AudioSource;
 			var pan = SoundMixer.__soundTransform.pan + __soundTransform.pan;
 
 			if (pan < -1) pan = -1;
-			if (pan > 1) pan = 1;
+			else if (pan > 1) pan = 1;
 
 			var volume = SoundMixer.__soundTransform.volume * __soundTransform.volume;
 

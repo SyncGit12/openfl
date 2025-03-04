@@ -1,3 +1,4 @@
+## This is the files that will be ignored.
 .DS_Store
 node_modules
 *.userprefs
@@ -43,3 +44,4 @@ packages/*/lib
 **/TestSuite.hx
 **/test/index.js
 **/.haxelib
+# hello my name is secret mweheheeh :3
